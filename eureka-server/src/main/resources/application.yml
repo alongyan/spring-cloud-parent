@@ -22,3 +22,10 @@ eureka:
     fetch-registry: false
     # 多个注册中心集群
     # defaultZone: http://localhost:8761/eureka/,http://localhost:8080/eureka/
+
+# 日志配置
+logging:
+  file: logs-eureka/eureka-log.log
+  level:
+    com.george: debug #debug 是日志的级别，com.george是包名
+    root: info
