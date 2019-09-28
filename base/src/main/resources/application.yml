@@ -1,0 +1,88 @@
+# Server settings
+server:
+  port: 9001 # api端口号
+  # HTTP请求和响应头的最大量，以字节为单位，默认值为4096字节,超过此长度的部分不予处理,一般8K。解决java.io.EOFException: null问题
+  max-http-header-size: 8192
+  use-forward-headers: true
+  compression:
+    enabled: true # 是否开启压缩，默认为false
+    min-response-size: 1024 # 执行压缩的阈值，默认为2048
+    # 指定要压缩的MIME type，多个以逗号分隔
+    mime-types: text/plain,text/css,text/xml,text/javascript,application/json,application/javascript,application/xml,application/xml+rss,application/x-javascript,application/x-httpd-php,image/jpeg,image/gif,image/png
+  tomcat:
+    remote-ip-header: X-Forwarded-for # 设定remote IP的header，如果remoteIpHeader有值，则设置为RemoteIpValve
+    protocol-header: X-Forwarded-Proto # 设定Header包含的协议，通常是 X-Forwarded-Proto，如果remoteIpHeader有值，则将设置为RemoteIpValve
+    port-header: X-Forwarded-Port # 设定http header使用的，用来覆盖原来port的value
+    uri-encoding: UTF-8 # 设定URI的解码字符集.
+    basedir: /var/tmp # 设定Tomcat的base 目录，如果没有指定则使用临时目录.
+
+# Spring配置
+spring:
+  application:
+    name: springcloud-base  #程序名称，唯一标识
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/shiro_test?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      #最小空闲连接数
+      minimum-idle: 5
+      #最大连接数
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000               #connection在连接池中的存活时间默认30分钟
+      connection-timeout: 30000
+  servlet:
+    multipart:  # 限定最大文件上传大小
+      max-file-size: 2MB
+      max-request-size: 10MB
+  # springboot解决中文乱码问题
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  messages:
+    encoding: UTF-8
+  resources: #https://www.cnblogs.com/softidea/p/7188419.html
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml    # 表示Mapper文件存放的位置，当Mapper文件跟对应的Mapper接口处于同一位置的时候可以不用指定该属性的值
+  typeAliasesPackage: com.george.*.entity   # 实体扫描，多个package用逗号或者分号分隔
+  typeEnumsPackage: com.george.*.enums # 枚举扫描
+  global-config:
+    refresh: true                # 刷新mapper 调试神器
+    db-config:                   # 数据库相关配置
+      id-type: id_worker         # 主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      field-strategy: not_empty  # 字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      column-underline: true     # 驼峰下划线转换
+      #capital-mode: true        # 数据库大写下划线转换
+      logic-delete-value: 1      # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0  # 逻辑未删除值(默认为 0)
+      db-type: mysql
+  configuration:                 # 原生配置
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+# 日志配置
+logging:
+  file: logs-base/base-log.log
+  level:
+    com.george: debug #debug 是日志的级别，com.george是包名
+    root: info
+
+# pagehelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
