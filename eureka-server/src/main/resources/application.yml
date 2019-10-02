@@ -2,7 +2,7 @@ server:
   port: 8761 # 端口
 spring:
   application:
-    name: eureka-serve #服务名称--必有，且不能重复
+    name: eureka-server #服务名称--必有，且不能重复
   # springboot解决中文乱码问题
   http:
     encoding:
@@ -25,7 +25,7 @@ eureka:
 
 # 日志配置
 logging:
-  file: logs-eureka/eureka-log.log
+  file: logs/${spring.application.name}/${spring.application.name}-log.log
   level:
     com.george: debug #debug 是日志的级别，com.george是包名
     root: info

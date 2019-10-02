@@ -1,0 +1,26 @@
+server:
+  port: 9000 # 端口
+spring:
+  application:
+    name: config-server # 实例名称
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/GeorgeChan/spring-cloud-parent.git # git仓库的地址
+          search-paths: config-file/dev,config-file/pro,config-file/test  # git仓库地址下的相对地址，可以配置多个，用,分割。
+          username: george_95@126.com #用户名
+          password: CYZ1995 #密码
+
+# 配置注册中心
+eureka:
+  client:
+    service-url: # 注册中心地址
+      defaultZone: http://localhost:8761/eureka/
+
+# 日志配置
+logging:
+  file: logs/${spring.application.name}/${spring.application.name}-log.log
+  level:
+    com.george: debug #debug 是日志的级别，com.george是包名
+    root: info

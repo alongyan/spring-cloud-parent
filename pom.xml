@@ -12,6 +12,11 @@
         <module>common</module>
         <module>base</module>
         <module>eureka-server</module>
+        <module>producer1</module>
+        <module>consumers</module>
+        <module>producer2</module>
+        <module>config-server</module>
+        <module>config-client</module>
     </modules>
     <name>spring-cloud-parent</name>
     <description>使用springcloud搭建分布式项目</description>
@@ -33,11 +38,6 @@
     </properties>
 
     <dependencies>
-        <!--web依赖-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <!--添加热部署依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

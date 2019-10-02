@@ -1,0 +1,24 @@
+server:
+  port: 9001 # 端口
+spring:
+  application:
+    name: config-client # 实例名称，唯一标识
+  cloud:
+    config:
+      name: config-server # 配置文件的前缀
+      profile: dev # 配置文件环境标识
+      uri: http://localhost:9000/ # 配置中心地址
+      label: master # 分支
+
+# 配置注册中心
+eureka:
+  client:
+    service-url: # 注册中心地址
+      defaultZone: http://localhost:8761/eureka/
+
+# 日志配置
+logging:
+  file: logs/${spring.application.name}/${spring.application.name}-log.log
+  level:
+    com.george: debug #debug 是日志的级别，com.george是包名
+    root: info

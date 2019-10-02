@@ -8,8 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>eureka-server</artifactId>
-    <description>eureka服务端</description>
+    <artifactId>producer2</artifactId>
+    <name>producer2</name>
+    <description>eureka客户端服务生产者</description>
 
     <!--项目基本属性-->
     <properties>
@@ -20,10 +21,21 @@
     </properties>
 
     <dependencies>
-        <!--eureka注册中心-->
+        <!--引入common模块-->
+        <dependency>
+            <groupId>com.george</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--web依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--Eureka-client-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <!--添加热部署依赖-->
         <dependency>
@@ -33,14 +45,4 @@
             <scope>true</scope>
         </dependency>
     </dependencies>
-
-    <!--maven插件-->
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>

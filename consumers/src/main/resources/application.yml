@@ -1,0 +1,20 @@
+server:
+  port: 8901 # 服务端口
+spring:
+  application: # 实例名称，唯一标识
+    name: eureka-client-consumers
+eureka:
+  client:
+    service-url: # 注册中心地址
+      defaultZone: http://localhost:8761/eureka/
+feign:
+  hystrix:  #开启熔断
+    enabled: true
+
+# 日志配置
+logging:
+  # 日志文件地址
+  file: logs/${spring.application.name}/${spring.application.name}-log.log
+  level:
+    com.george: debug #debug 是日志的级别，com.george是包名
+    root: info
