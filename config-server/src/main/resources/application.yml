@@ -11,12 +11,24 @@ spring:
           search-paths: config-file/dev,config-file/pro,config-file/test  # git仓库地址下的相对地址，可以配置多个，用,分割。
           username: george_95@126.com #用户名
           password: CYZ1995 #密码
-
+  # rabbitmq 配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
 # 配置注册中心
 eureka:
   client:
     service-url: # 注册中心地址
       defaultZone: http://localhost:8761/eureka/
+
+#  springboot 2.x 默认只开启了info、health的访问，*代表开启所有访问
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 # 日志配置
 logging:

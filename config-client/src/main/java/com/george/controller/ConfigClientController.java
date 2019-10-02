@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
  *                  ]
  *                  表示刷新成功！
  *                  localhost:9001 客户端ip和端口
+ *
+ *  如果使用bus总线刷新配置，请求：curl -X POST http://127.0.0.1:9001/actuator/bus-refresh
+ *  所有配置都会刷新
  * </p>
  *
  * @author GeorgeChan 2019/10/2 17:33
