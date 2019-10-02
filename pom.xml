@@ -17,6 +17,7 @@
         <module>producer2</module>
         <module>config-server</module>
         <module>config-client</module>
+        <module>zuul</module>
     </modules>
     <name>spring-cloud-parent</name>
     <description>使用springcloud搭建分布式项目</description>
