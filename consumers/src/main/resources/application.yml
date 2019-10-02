@@ -3,6 +3,12 @@ server:
 spring:
   application: # 实例名称，唯一标识
     name: eureka-client-consumers
+  # springboot解决中文乱码问题
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 eureka:
   client:
     service-url: # 注册中心地址

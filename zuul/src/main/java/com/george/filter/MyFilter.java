@@ -4,11 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.nio.charset.Charset;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
 
@@ -64,6 +68,17 @@ public class MyFilter extends ZuulFilter {
      */
     @Override
     public Object run() throws ZuulException {
+        RequestContext requestContext = RequestContext.getCurrentContext();
+        HttpServletRequest request = requestContext.getRequest();
+        String cookie = request.getHeader("Cookie");
+        String authorization = request.getHeader("Authorization");
+
+        // 这里模拟权限检验，失败返回401
+        if (StringUtils.isEmpty(authorization)) {
+            requestContext.setSendZuulResponse(false);
+            requestContext.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
+            requestContext.setResponseBody("权限不足！");
+        }
         return null;
     }
 }
