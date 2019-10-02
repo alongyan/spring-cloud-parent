@@ -7,8 +7,11 @@ spring:
     config:
       name: config-server # 配置文件的前缀
       profile: dev # 配置文件环境标识
-      uri: http://localhost:9000/ # 配置中心地址
+#      uri: http://localhost:9000/ # 配置中心地址
       label: master # 分支
+      discovery:
+        enabled: true # 开启config服务发现支持
+        service-id: config-server # 配置中心server端的name （service-id存在就把uri删掉）
 
 # 配置注册中心
 eureka:
@@ -22,3 +25,10 @@ logging:
   level:
     com.george: debug #debug 是日志的级别，com.george是包名
     root: info
+
+#  springboot 2.x 默认只开启了info、health的访问，*代表开启所有访问
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
