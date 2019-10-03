@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.nio.charset.Charset;
-
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
 
 /**
@@ -48,7 +46,8 @@ public class MyFilter extends ZuulFilter {
 
     /**
      * 过滤器是否生效
-     * @return
+     * RequestContext 请求的全局对象
+     * @return boolean 是否过滤
      */
     @Override
     public boolean shouldFilter() {
@@ -63,6 +62,7 @@ public class MyFilter extends ZuulFilter {
 
     /**
      * 业务逻辑
+     * 模拟token鉴权，如果Authorization为空，表示没有权限
      * @return
      * @throws ZuulException
      */
