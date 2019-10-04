@@ -1,5 +1,7 @@
 server:
   port: 7001 # 端口
+  tomcat:
+    uri-encoding: UTF-8
 spring:
   application:
     name: zuul # 实例名称 唯一标识
@@ -9,19 +11,26 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
+  messages:
+    encoding: UTF-8
 eureka:
   client:
     service-url: # 注册中心地址
       defaultZone: http://localhost:8761/eureka/
 
 zuul:
+  # 全局设置：转发前是否带前缀
+  strip-prefix: false
   routes: #自定义路由映射 (路由不能重复，下面会把上面的覆盖)
-    eureka-client-producer: /api/producer/**
-    eureka-client-consumers: /api/consumer/**
+    producer: # 服务名称，可以随便写
+      path: /api/producer/** #路由前缀
+      serviceId: eureka-client-producer # 实例名称，与yml中的保持一致
+      # 单个服务：转发前是否带前缀
+      stripPrefix: false
   # 忽略的服务
   ignored-patterns: /*-producer/**
 #  敏感的头信息 默认Cookie是不能通过网关头信息传递的
-#  sensitive-headers:
+  sensitive-headers:
 
 # 日志配置
 logging:

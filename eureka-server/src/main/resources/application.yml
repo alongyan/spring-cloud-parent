@@ -10,6 +10,8 @@ spring:
       enabled: true
       force: true
 eureka:
+  instance:
+    hostname: localhost
   server:
     # eureka缓存，true开启缓存，false关闭，生产环境建议为true
     enable-self-preservation: true
@@ -17,7 +19,7 @@ eureka:
     register-with-eureka: false # 是否注册中心注册自己 true为是，可以在注册中心列表找到自己
     service-url:
       # Eureka客户端与Eureka服务端进行交互的地址
-      defaultZone: http://localhost:${server.port}/eureka/
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
     # 是否从Eureka中获取服务信息
     fetch-registry: false
     # 多个注册中心集群

@@ -1,6 +1,5 @@
 package com.george.filter;
 
-import com.alibaba.fastjson.JSON;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
@@ -11,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+
+import java.io.UnsupportedEncodingException;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
 
@@ -69,6 +70,8 @@ public class MyFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         RequestContext requestContext = RequestContext.getCurrentContext();
+        // 解决返回中文乱码问题
+        requestContext.getResponse().setContentType("text/html;charset=UTF-8");
         HttpServletRequest request = requestContext.getRequest();
         String cookie = request.getHeader("Cookie");
         String authorization = request.getHeader("Authorization");
